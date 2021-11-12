@@ -11,13 +11,8 @@ namespace RequestStockService.Repositories
         private readonly List<PurchaseRequestDomainModel> _purchaseList;
         public FakePurchaseRequestRepository()
         {
-            _purchaseList = new List<PurchaseRequestDomainModel>()
-            {
-                new PurchaseRequestDomainModel() { PurchaseID = 1, PurchaseName = "test", PurchaseQTY = 10, PurchaseCost = 111 }
-            };
+            _purchaseList = new List<PurchaseRequestDomainModel>(){};
         }
-
-        public Task<IEnumerable<PurchaseRequestDomainModel>> GetAllPurchaseAsync() => Task.FromResult(_purchaseList.AsEnumerable());
 
         public PurchaseRequestDomainModel SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel)
         {

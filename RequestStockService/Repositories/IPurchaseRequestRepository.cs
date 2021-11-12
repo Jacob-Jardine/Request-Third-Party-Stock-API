@@ -8,7 +8,6 @@ namespace RequestStockService.Repositories
 {
     public interface IPurchaseRequestRepository
     {
-        public Task<IEnumerable<PurchaseRequestDomainModel>> GetAllPurchaseAsync();
         public PurchaseRequestDomainModel SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel);
         public Task SaveChangesAsync();
     }

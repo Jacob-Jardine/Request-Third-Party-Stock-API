@@ -22,20 +22,6 @@ namespace RequestStockService.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("GetPurchaseRequests")]
-        public async Task<ActionResult<IEnumerable<PurchaseRequestReadDTO>>> GetAllStaff()
-        {
-            try
-            {
-                var getAllStaff = await _purchaseRequestRepository.GetAllPurchaseAsync();
-                return Ok(_mapper.Map<IEnumerable<PurchaseRequestReadDTO>>(getAllStaff));
-            }
-            catch
-            {
-                return NotFound();
-            }
-        }
-
         [HttpPost("SendPurchaseRequest")]
         public async Task<ActionResult> SendPurchaseRequest([FromBody] PurchaseRequestSendDTO purchaseRequestDTO)
         {
