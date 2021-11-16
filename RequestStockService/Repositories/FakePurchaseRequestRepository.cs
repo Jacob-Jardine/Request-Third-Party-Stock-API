@@ -1,4 +1,5 @@
 ﻿using RequestStockService.DomainModel;
+using RequestStockService.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,11 @@ namespace RequestStockService.Repositories
         public Task SaveChangesAsync()
         {
             return Task.CompletedTask;
+        }
+
+        public Task<IEnumerable<ReadThirdPartyProductsDomainModel>> GetAllThirdPartyProducts()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -22,6 +22,20 @@ namespace RequestStockService.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("Get-Third-Party-Products")]
+        public async Task<ActionResult<IEnumerable<ReadThirdPartyProductsDomainModel>>> GetThirdPartyProducts()
+        {
+            try
+            {
+                var products = await _purchaseRequestRepository.GetAllThirdPartyProducts();
+                return products.ToList();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost("Send-Purchase-Request")]
         public async Task<ActionResult> SendPurchaseRequest([FromBody] PurchaseRequestSendDTO purchaseRequestDTO)
         {

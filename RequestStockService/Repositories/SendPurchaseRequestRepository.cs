@@ -1,13 +1,15 @@
 ﻿using Microsoft.Extensions.Configuration;
 using RequestStockService.DomainModel;
+using RequestStockService.DTOs;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-
 namespace RequestStockService.Repositories
 {
     public class SendPurchaseRequestRepository : IPurchaseRequestRepository
@@ -30,6 +32,18 @@ namespace RequestStockService.Repositories
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PostAsync("Order", data);
             response.EnsureSuccessStatusCode();
+        }
+
+        public async Task<IEnumerable<ReadThirdPartyProductsDomainModel>> GetAllThirdPartyProducts()
+        {
+            var response = await _client.GetAsync("Product");
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return null;
+            }
+            response.EnsureSuccessStatusCode();
+            var products = await response.Content.ReadAsAsync<IEnumerable<ReadThirdPartyProductsDomainModel>>();
+            return products;
         }
 
         public Task SaveChangesAsync()
