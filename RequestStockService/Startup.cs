@@ -28,11 +28,16 @@ namespace RequestStockService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddHttpClient<IPurchaseRequestRepository, SendPurchaseRequestRepository>();
-            //services.AddSingleton<IPurchaseRequestRepository, FakePurchaseRequestRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllers();
+            if (_environment.IsDevelopment())
+            {
+                services.AddSingleton<IPurchaseRequestRepository, FakePurchaseRequestRepository>();
+            }
+            else if (_environment.IsStaging() || _environment.IsProduction())
+            {
+                services.AddHttpClient<IPurchaseRequestRepository, SendPurchaseRequestRepository>();
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
