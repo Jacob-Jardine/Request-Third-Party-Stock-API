@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RequestStockService.Controllers
 {
-    [Route("api/purchase")]
+    [Route("api/third-party")]
     [ApiController]
     public class PurchaseRequestController : ControllerBase
     {
@@ -22,13 +22,13 @@ namespace RequestStockService.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("SendPurchaseRequest")]
+        [HttpPost("Send-Purchase-Request")]
         public async Task<ActionResult> SendPurchaseRequest([FromBody] PurchaseRequestSendDTO purchaseRequestDTO)
         {
             try 
             {
                 var purchaseRequest = _mapper.Map<PurchaseRequestDomainModel>(purchaseRequestDTO);
-                PurchaseRequestDomainModel newPurchaseRequestDomainModel = _purchaseRequestRepository.SendPurchaseRequest(purchaseRequest);
+                await _purchaseRequestRepository.SendPurchaseRequest(purchaseRequest);
                 await _purchaseRequestRepository.SaveChangesAsync();
                 return Ok();
             }

@@ -29,7 +29,7 @@ namespace RequestStockService
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddSingleton<IPurchaseRequestRepository, FakePurchaseRequestRepository>();
+            services.AddHttpClient<IPurchaseRequestRepository, SendPurchaseRequestRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllers();
         }

@@ -9,12 +9,12 @@ namespace RequestStockService.DTOs
     public class PurchaseRequestSendDTO
     {
         [Required]
-        public int PurchaseID { get; set; }
+        public string AccountName { get; set; }
         [Required]
-        public string PurchaseName { get; set; }
+        public string CardNumber { get; set; }
         [Required]
-        public int PurchaseQTY { get; set; }
+        public int ProductId { get; set; }
         [Required]
-        public double PurchaseCost { get; set; }
+        public int Quantity { get; set; }
     }
 }

@@ -14,10 +14,10 @@ namespace RequestStockService.Repositories
             _purchaseList = new List<PurchaseRequestDomainModel>(){};
         }
 
-        public PurchaseRequestDomainModel SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel)
+        public Task SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel)
         {
             _purchaseList.Add(purchaseDomainModel);
-            return purchaseDomainModel;
+            return Task.CompletedTask;
         }
 
         public Task SaveChangesAsync()

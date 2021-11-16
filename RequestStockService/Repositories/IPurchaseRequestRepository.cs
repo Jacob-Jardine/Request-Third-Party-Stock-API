@@ -8,7 +8,7 @@ namespace RequestStockService.Repositories
 {
     public interface IPurchaseRequestRepository
     {
-        public PurchaseRequestDomainModel SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel);
+        public Task SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel);
         public Task SaveChangesAsync();
     }
 }
