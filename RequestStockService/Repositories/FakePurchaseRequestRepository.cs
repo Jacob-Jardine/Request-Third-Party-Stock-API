@@ -16,8 +16,6 @@ namespace RequestStockService.Repositories
 
         public PurchaseRequestDomainModel SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel)
         {
-            int newPurchaseRequestID = 2;
-            purchaseDomainModel.PurchaseID = newPurchaseRequestID;
             _purchaseList.Add(purchaseDomainModel);
             return purchaseDomainModel;
         }
