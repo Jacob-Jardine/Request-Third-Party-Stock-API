@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RequestStockService.DomainModel;
 using RequestStockService.DTOs;
@@ -23,6 +24,7 @@ namespace RequestStockService.Controllers
         }
 
         [HttpGet("Get-Third-Party-Products")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<ReadThirdPartyProductsDomainModel>>> GetThirdPartyProducts()
         {
             try
@@ -37,6 +39,7 @@ namespace RequestStockService.Controllers
         }
 
         [HttpPost("Send-Purchase-Request")]
+        [Authorize]
         public async Task<ActionResult> SendPurchaseRequest([FromBody] PurchaseRequestSendDTO purchaseRequestDTO)
         {
             try 

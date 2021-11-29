@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RequestStockService.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace RequestStockService
 {
@@ -32,12 +33,22 @@ namespace RequestStockService
             services.AddControllers();
             if (_environment.IsDevelopment())
             {
-                services.AddSingleton<IPurchaseRequestRepository, FakePurchaseRequestRepository>();
+                //services.AddSingleton<IPurchaseRequestRepository, FakePurchaseRequestRepository>();
+                services.AddHttpClient<IPurchaseRequestRepository, SendPurchaseRequestRepository>();
             }
             else if (_environment.IsStaging() || _environment.IsProduction())
             {
                 services.AddHttpClient<IPurchaseRequestRepository, SendPurchaseRequestRepository>();
             }
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
+                options.Audience = Configuration["Auth0:Audience"];
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +62,8 @@ namespace RequestStockService
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
