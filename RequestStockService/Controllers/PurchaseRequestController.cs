@@ -24,7 +24,7 @@ namespace RequestStockService.Controllers
         }
 
         [HttpGet("Get-Third-Party-Products")]
-        [Authorize]
+        [Authorize("ReadThirdPartyStock")]
         public async Task<ActionResult<IEnumerable<ReadThirdPartyProductsDomainModel>>> GetThirdPartyProducts()
         {
             try
@@ -39,7 +39,7 @@ namespace RequestStockService.Controllers
         }
 
         [HttpPost("Send-Purchase-Request")]
-        [Authorize]
+        [Authorize("SendThirdPartyRequest")]
         public async Task<ActionResult> SendPurchaseRequest([FromBody] PurchaseRequestSendDTO purchaseRequestDTO)
         {
             try 
