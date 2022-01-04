@@ -33,6 +33,7 @@ namespace RequestStockService
             if (_environment.IsDevelopment())
             {
                 services.AddSingleton<IPurchaseRequestRepository, FakePurchaseRequestRepository>();
+                //services.AddHttpClient<IPurchaseRequestRepository, SendPurchaseRequestRepository>();
             }
             else if (_environment.IsStaging() || _environment.IsProduction())
             {

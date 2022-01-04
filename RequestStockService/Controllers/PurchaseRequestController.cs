@@ -46,7 +46,7 @@ namespace RequestStockService.Controllers
                 await _purchaseRequestRepository.SaveChangesAsync();
                 return Ok();
             }
-            catch 
+            catch (Exception e)
             {
                 return BadRequest();
             }
