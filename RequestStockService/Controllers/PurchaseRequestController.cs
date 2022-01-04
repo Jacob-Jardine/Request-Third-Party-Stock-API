@@ -47,7 +47,7 @@ namespace RequestStockService.Controllers
                 var purchaseRequest = _mapper.Map<PurchaseRequestDomainModel>(purchaseRequestDTO);
                 await _purchaseRequestRepository.SendPurchaseRequest(purchaseRequest);
                 await _purchaseRequestRepository.SaveChangesAsync();
-                return Ok();
+                return Ok("Purchase Request Has Been Accepeted By The Third Party Provider");
             }
             catch (Exception e)
             {
