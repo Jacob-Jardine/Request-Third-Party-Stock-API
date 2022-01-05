@@ -14,8 +14,6 @@ namespace RequestStockService.Profiles
         {
             CreateMap<PurchaseRequestDomainModel, PurchaseRequestSendDTO>();
             CreateMap<PurchaseRequestSendDTO, PurchaseRequestDomainModel>();
-            CreateMap<PurchaseRequestDomainModel, PurchaseRequestReadDTO>();
-            CreateMap<PurchaseRequestReadDTO, PurchaseRequestDomainModel>();
             CreateMap<ReadThirdPartyProductsDomainModel, ReadThirdPartyProductsDTO>();
             CreateMap<ReadThirdPartyProductsDTO, ReadThirdPartyProductsDomainModel>();
         }

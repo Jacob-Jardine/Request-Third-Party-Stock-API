@@ -22,15 +22,17 @@ namespace RequestStockService.Repositories
 
         public Task<IEnumerable<ReadThirdPartyProductsDomainModel>> GetAllThirdPartyProducts() => Task.FromResult(_readProductList.AsEnumerable());
 
-        public Task SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel)
+        public async Task<bool> SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel)
         {
-            _purchaseList.Add(purchaseDomainModel);
-            return Task.CompletedTask;
-        }
-
-        public Task SaveChangesAsync()
-        {
-            return Task.CompletedTask;
+            try
+            {
+                _purchaseList.Add(purchaseDomainModel);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }        
         }
     }
 }

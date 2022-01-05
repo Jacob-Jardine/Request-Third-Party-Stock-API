@@ -26,12 +26,17 @@ namespace RequestStockService.Repositories
             _client = client;
         }
 
-        public async Task SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel)
+        public async Task<bool> SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel)
         {
             var json = JsonSerializer.Serialize(purchaseDomainModel);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PostAsync("Order", data);
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return false;
+            }
             response.EnsureSuccessStatusCode();
+            return true;
         }
 
         public async Task<IEnumerable<ReadThirdPartyProductsDomainModel>> GetAllThirdPartyProducts()
@@ -44,11 +49,6 @@ namespace RequestStockService.Repositories
             response.EnsureSuccessStatusCode();
             var products = await response.Content.ReadAsAsync<IEnumerable<ReadThirdPartyProductsDomainModel>>();
             return products;
-        }
-
-        public Task SaveChangesAsync()
-        {
-            return Task.CompletedTask;
         }
     }
 }

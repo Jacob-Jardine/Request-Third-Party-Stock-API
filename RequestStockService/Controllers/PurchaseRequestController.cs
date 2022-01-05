@@ -17,6 +17,7 @@ namespace RequestStockService.Controllers
     {
         private readonly IPurchaseRequestRepository _purchaseRequestRepository;
         private IMapper _mapper;
+
         public PurchaseRequestController(IPurchaseRequestRepository purchaseRequestRepository, IMapper mapper)
         {
             _purchaseRequestRepository = purchaseRequestRepository;
@@ -25,12 +26,12 @@ namespace RequestStockService.Controllers
 
         [HttpGet("Get-Third-Party-Products")]
         [Authorize("ReadThirdPartyStock")]
-        public async Task<ActionResult<IEnumerable<ReadThirdPartyProductsDomainModel>>> GetThirdPartyProducts()
+        public async Task<ActionResult<IEnumerable<ReadThirdPartyProductsDTO>>> GetThirdPartyProducts()
         {
             try
             {
                 var products = await _purchaseRequestRepository.GetAllThirdPartyProducts();
-                return products.ToList();
+                return Ok(_mapper.Map<ReadThirdPartyProductsDTO>(products));
             }
             catch
             {
@@ -46,10 +47,9 @@ namespace RequestStockService.Controllers
             {
                 var purchaseRequest = _mapper.Map<PurchaseRequestDomainModel>(purchaseRequestDTO);
                 await _purchaseRequestRepository.SendPurchaseRequest(purchaseRequest);
-                await _purchaseRequestRepository.SaveChangesAsync();
                 return Ok("Purchase Request Has Been Accepeted By The Third Party Provider");
             }
-            catch (Exception e)
+            catch
             {
                 return BadRequest();
             }
