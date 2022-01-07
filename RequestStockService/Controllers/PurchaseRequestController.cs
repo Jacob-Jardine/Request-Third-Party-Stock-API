@@ -66,6 +66,10 @@ namespace RequestStockService.Controllers
         {
             try 
             {
+                if (purchaseRequestDTO == null)
+                {
+                    return BadRequest("Purchase Request Can't Be Null");
+                }
                 await _purchaseRequestRepository.SendPurchaseRequest(purchaseRequestDTO);
                 return Ok("Purchase Request Has Been Accepeted By The Third Party Provider");
             }

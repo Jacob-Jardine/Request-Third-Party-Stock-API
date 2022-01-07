@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -187,6 +188,23 @@ namespace Third_Party_Stock_Request_xUnit_Tests
             Assert.NotNull(objResult);
             mockRepo.Verify(x => x.GetAllThirdPartyProducts(), Times.Never);
             mockRepo.Verify(x => x.SendPurchaseRequest(It.IsAny<PurchaseRequestSendDTO>()), Times.Once);
+        }
+
+        [Fact]
+        public async void SendPurchaseRequestNull_Mock()
+        {
+            //Arrange
+            SetupWithMocks();
+
+            //Act
+            var result = await controller.SendPurchaseRequest(null);
+
+            //Assert
+            Assert.NotNull(result);
+            var objResult = result as BadRequestResult;
+            Assert.Null(objResult);
+            mockRepo.Verify(x => x.GetAllThirdPartyProducts(), Times.Never);
+            mockRepo.Verify(x => x.SendPurchaseRequest(It.IsAny<PurchaseRequestSendDTO>()), Times.Never);
         }
         #endregion
     }
