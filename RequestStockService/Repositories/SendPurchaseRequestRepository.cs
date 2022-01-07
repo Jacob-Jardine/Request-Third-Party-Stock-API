@@ -28,7 +28,8 @@ namespace RequestStockService.Repositories
         public SendPurchaseRequestRepository(IConfiguration config, HttpClient client)
         {
             _config = config;
-            client.BaseAddress = _config.GetValue<Uri>("THIRD_PARTY_BASE_URL");
+            string baseUrl = config["THIRD_PARTY_BASE_URL"];
+            client.BaseAddress = new System.Uri(baseUrl);
             client.Timeout = TimeSpan.FromSeconds(5);
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             _client = client;
@@ -41,6 +42,10 @@ namespace RequestStockService.Repositories
         /// <returns></returns>
         public async Task<bool> SendPurchaseRequest(PurchaseRequestSendDTO sendPurchaseRequestDTO)
         {
+            if(sendPurchaseRequestDTO == null) 
+            {
+                return false;
+            }
             var json = JsonSerializer.Serialize(sendPurchaseRequestDTO);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PostAsync("Order", data);
