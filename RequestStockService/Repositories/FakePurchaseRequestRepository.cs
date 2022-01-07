@@ -12,8 +12,8 @@ namespace RequestStockService.Repositories
     /// </summary>
     public class FakePurchaseRequestRepository : IPurchaseRequestRepository
     {
-        private readonly List<PurchaseRequestSendDTO> _purchaseList;
-        private readonly List<ReadThirdPartyProductsDTO> _readProductList;
+        public List<PurchaseRequestSendDTO> _purchaseList;
+        public List<ReadThirdPartyProductsDTO> _readProductList;
         /// <summary>
         /// Constructor instantiating fakes
         /// </summary>

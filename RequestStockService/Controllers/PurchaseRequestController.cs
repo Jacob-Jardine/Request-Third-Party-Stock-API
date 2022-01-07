@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using RequestStockService.DTOs;
 using RequestStockService.Repositories;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace RequestStockService.Controllers
     public class PurchaseRequestController : ControllerBase
     {
         private readonly IPurchaseRequestRepository _purchaseRequestRepository;
+        private readonly ILogger<PurchaseRequestController> _logger;
         private IMapper _mapper;
 
         /// <summary>
@@ -24,10 +26,11 @@ namespace RequestStockService.Controllers
         /// </summary>
         /// <param name="purchaseRequestRepository"></param>
         /// <param name="mapper"></param>
-        public PurchaseRequestController(IPurchaseRequestRepository purchaseRequestRepository, IMapper mapper)
+        public PurchaseRequestController(IPurchaseRequestRepository purchaseRequestRepository, IMapper mapper, ILogger<PurchaseRequestController> logger)
         {
             _purchaseRequestRepository = purchaseRequestRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         /// <summary>
