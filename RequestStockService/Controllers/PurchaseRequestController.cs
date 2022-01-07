@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RequestStockService.DTOs;
 using RequestStockService.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -68,7 +69,7 @@ namespace RequestStockService.Controllers
                 await _purchaseRequestRepository.SendPurchaseRequest(purchaseRequestDTO);
                 return Ok("Purchase Request Has Been Accepeted By The Third Party Provider");
             }
-            catch
+            catch (Exception e)
             {
                 return BadRequest();
             }

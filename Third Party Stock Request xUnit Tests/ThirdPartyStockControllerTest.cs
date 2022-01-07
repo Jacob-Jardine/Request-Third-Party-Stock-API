@@ -36,7 +36,10 @@ namespace Third_Party_Stock_Request_xUnit_Tests
         {
             sendPurchaseRequestDTO = new PurchaseRequestSendDTO()
             {
-                ProductId = 1
+                ProductId = 1,
+                AccountName = "Jacob",
+                CardNumber = "1111222233334444",
+                Quantity = 10
             };
         }
 
@@ -77,7 +80,7 @@ namespace Third_Party_Stock_Request_xUnit_Tests
 
         private void SetMockReviewRepo()
         {
-            mockRepo = new Mock<IPurchaseRequestRepository>(MockBehavior.Strict);
+            mockRepo = new Mock<IPurchaseRequestRepository>();
 
             mockRepo.Setup(repo => repo.GetAllThirdPartyProducts())
               .ReturnsAsync(new List<ReadThirdPartyProductsDTO>()).Verifiable();
@@ -150,6 +153,40 @@ namespace Third_Party_Stock_Request_xUnit_Tests
             Assert.NotNull(result);
             var objResult = result as BadRequestObjectResult;
             Assert.Null(objResult);
+        }
+        #endregion
+
+        #region Test With Mocks
+        [Fact]
+        public async void GetAllProducts_True_Mock()
+        {
+            //Arrange
+            SetupWithMocks();
+            
+            //Act
+            var result = await controller.GetThirdPartyProducts();
+
+            //Assert
+            Assert.NotNull(result);
+            mockRepo.Verify(x => x.GetAllThirdPartyProducts(), Times.Once);
+            mockRepo.Verify(x => x.SendPurchaseRequest(It.IsAny<PurchaseRequestSendDTO>()), Times.Never);
+        }
+
+        [Fact]
+        public async void SendPurchaseRequest_True_Mock()
+        {
+            //Arrange
+            SetupWithMocks();
+
+            //Act
+            var result = await controller.SendPurchaseRequest(sendPurchaseRequestDTO);
+
+            //Assert
+            Assert.NotNull(result);
+            var objResult = result as OkObjectResult;
+            Assert.NotNull(objResult);
+            mockRepo.Verify(x => x.GetAllThirdPartyProducts(), Times.Never);
+            mockRepo.Verify(x => x.SendPurchaseRequest(It.IsAny<PurchaseRequestSendDTO>()), Times.Once);
         }
         #endregion
     }
