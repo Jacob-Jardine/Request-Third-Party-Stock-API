@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace RequestStockService.Profiles
 {
+    /// <summary>
+    /// Mapper class that quickly and easily converts one model to another
+    /// </summary>
     public class PurchaseRequestProfile : Profile
     {
         public PurchaseRequestProfile() 

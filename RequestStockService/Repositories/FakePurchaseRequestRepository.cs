@@ -7,22 +7,37 @@ using System.Threading.Tasks;
 
 namespace RequestStockService.Repositories
 {
+    /// <summary>
+    /// Fake implementation for Third Party Stock service
+    /// </summary>
     public class FakePurchaseRequestRepository : IPurchaseRequestRepository
     {
-        private readonly List<PurchaseRequestDomainModel> _purchaseList;
-        private readonly List<ReadThirdPartyProductsDomainModel> _readProductList;
+        private readonly List<PurchaseRequestSendDTO> _purchaseList;
+        private readonly List<ReadThirdPartyProductsDTO> _readProductList;
+        /// <summary>
+        /// Constructor instantiating fakes
+        /// </summary>
         public FakePurchaseRequestRepository()
         {
-            _purchaseList = new List<PurchaseRequestDomainModel>(){};
-            _readProductList = new List<ReadThirdPartyProductsDomainModel>() 
+            _purchaseList = new List<PurchaseRequestSendDTO>(){};
+            _readProductList = new List<ReadThirdPartyProductsDTO>() 
             {
-                new ReadThirdPartyProductsDomainModel() {Id = 1, Ean = "5 102310 300410", CategoryId = 1, CategoryName = "Screen Protectors", BrandId = 1, BrandName = "iStuff-R-Us", Name = "Rippled Screen Protector", Description = "For his or her sensory pleasure. Fits few known smartphones.", Price = 6.03m, InStock = true}
+                new ReadThirdPartyProductsDTO() {BrandId = 1}
             };
         }
 
-        public Task<IEnumerable<ReadThirdPartyProductsDomainModel>> GetAllThirdPartyProducts() => Task.FromResult(_readProductList.AsEnumerable());
+        /// <summary>
+        /// Returning all the products in the fake list
+        /// </summary>
+        /// <returns></returns>
+        public Task<IEnumerable<ReadThirdPartyProductsDTO>> GetAllThirdPartyProducts() => Task.FromResult(_readProductList.AsEnumerable());
 
-        public async Task<bool> SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel)
+        /// <summary>
+        /// Adding a purchase request to a fake list to simulate buying from the Third Part Stock service
+        /// </summary>
+        /// <param name="purchaseDomainModel"></param>
+        /// <returns></returns>
+        public async Task<bool> SendPurchaseRequest(PurchaseRequestSendDTO purchaseDomainModel)
         {
             try
             {

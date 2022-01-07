@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace RequestStockService.DTOs
 {
+    /// <summary>
+    /// DTO that takes the parameters needed to read a product from 
+    /// the Third Party Stock service
+    /// </summary>
     public class ReadThirdPartyProductsDTO
     {
         public int Id { get; set; }

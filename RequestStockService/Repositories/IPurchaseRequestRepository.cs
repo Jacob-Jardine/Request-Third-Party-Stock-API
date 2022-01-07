@@ -8,9 +8,12 @@ using RequestStockService.DTOs;
 
 namespace RequestStockService.Repositories
 {
+    /// <summary>
+    /// Interface for Third Party Stock service
+    /// </summary>
     public interface IPurchaseRequestRepository
     {
-        public Task<bool> SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel);
-        public Task<IEnumerable<ReadThirdPartyProductsDomainModel>> GetAllThirdPartyProducts();
+        public Task<bool> SendPurchaseRequest(PurchaseRequestSendDTO purchaseDomainModel);
+        public Task<IEnumerable<ReadThirdPartyProductsDTO>> GetAllThirdPartyProducts();
     }
 }

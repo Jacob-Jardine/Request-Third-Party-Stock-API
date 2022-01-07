@@ -12,11 +12,19 @@ using System.Text.Json;
 using System.Threading.Tasks;
 namespace RequestStockService.Repositories
 {
+    /// <summary>
+    /// Concrete implementation for interacting with the Third Party Stock service
+    /// </summary>
     public class SendPurchaseRequestRepository : IPurchaseRequestRepository
     {
         private readonly IConfiguration _config;
         private readonly HttpClient _client;
 
+        /// <summary>
+        /// Constructor instantiating configuring the HttpClient
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="client"></param>
         public SendPurchaseRequestRepository(IConfiguration config, HttpClient client)
         {
             _config = config;
@@ -26,9 +34,14 @@ namespace RequestStockService.Repositories
             _client = client;
         }
 
-        public async Task<bool> SendPurchaseRequest(PurchaseRequestDomainModel purchaseDomainModel)
+        /// <summary>
+        /// Sends a post request to the Third Party Stock service to buy stock
+        /// </summary>
+        /// <param name="sendPurchaseRequestDTO"></param>
+        /// <returns></returns>
+        public async Task<bool> SendPurchaseRequest(PurchaseRequestSendDTO sendPurchaseRequestDTO)
         {
-            var json = JsonSerializer.Serialize(purchaseDomainModel);
+            var json = JsonSerializer.Serialize(sendPurchaseRequestDTO);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PostAsync("Order", data);
             if (response.StatusCode == HttpStatusCode.NotFound)
@@ -39,7 +52,11 @@ namespace RequestStockService.Repositories
             return true;
         }
 
-        public async Task<IEnumerable<ReadThirdPartyProductsDomainModel>> GetAllThirdPartyProducts()
+        /// <summary>
+        /// Sends a get request to the Third Party Stock service to get a list of all products
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<ReadThirdPartyProductsDTO>> GetAllThirdPartyProducts()
         {
             var response = await _client.GetAsync("Product");
             if (response.StatusCode == HttpStatusCode.NotFound)
@@ -47,7 +64,7 @@ namespace RequestStockService.Repositories
                 return null;
             }
             response.EnsureSuccessStatusCode();
-            var products = await response.Content.ReadAsAsync<IEnumerable<ReadThirdPartyProductsDomainModel>>();
+            var products = await response.Content.ReadAsAsync<IEnumerable<ReadThirdPartyProductsDTO>>();
             return products;
         }
     }

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace RequestStockService.DTOs
 {
+    /// <summary>
+    /// DTO that takes the parameters needed to send a purchase request to
+    /// the Third Party Stock service
+    /// </summary>
     public class PurchaseRequestSendDTO
     {
         public string AccountName { get; set; }
