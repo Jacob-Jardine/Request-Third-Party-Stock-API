@@ -153,7 +153,7 @@ namespace Third_Party_Stock_Request_xUnit_Tests
             //Arrange
             Assert.NotNull(result);
             var objResult = result as BadRequestObjectResult;
-            Assert.Null(objResult);
+            Assert.NotNull(objResult);
         }
         #endregion
 
