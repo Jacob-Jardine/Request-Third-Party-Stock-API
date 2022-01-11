@@ -33,12 +33,12 @@ namespace RequestStockService
             services.AddControllers();
             if (_environment.IsDevelopment())
             {
-                services.AddSingleton<IPurchaseRequestRepository, FakePurchaseRequestRepository>();
+                services.AddSingleton<IThirdPartyStockRepository, FakeThirdPartyStockRepository>();
                 //services.AddHttpClient<IPurchaseRequestRepository, SendPurchaseRequestRepository>();
             }
             else if (_environment.IsStaging() || _environment.IsProduction())
             {
-                services.AddHttpClient<IPurchaseRequestRepository, SendPurchaseRequestRepository>();
+                services.AddHttpClient<IThirdPartyStockRepository, ThirdPartyStockRepository>();
             }
             services.AddAuthentication(options =>
             {

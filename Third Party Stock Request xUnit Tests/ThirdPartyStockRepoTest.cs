@@ -42,12 +42,12 @@ namespace Third_Party_Stock_Request_xUnit_Tests
             return mock;
         }
 
-        private IPurchaseRequestRepository ThirdPartyStockService(HttpClient client)
+        private IThirdPartyStockRepository ThirdPartyStockService(HttpClient client)
         {
             var mockConfiguration = new Mock<IConfiguration>(MockBehavior.Strict);
             mockConfiguration.Setup(c => c["THIRD_PARTY_BASE_URL"])
                              .Returns("http://undercutters.azurewebsites.net/api/");
-            return new SendPurchaseRequestRepository(mockConfiguration.Object, client);
+            return new ThirdPartyStockRepository(mockConfiguration.Object, client);
         }
 
         [Fact]
@@ -56,8 +56,8 @@ namespace Third_Party_Stock_Request_xUnit_Tests
             //Arrange
             var expectedResult = new ReadThirdPartyProductsDTO[]
             {
-                new ReadThirdPartyProductsDTO() {BrandId = 1},
-                new ReadThirdPartyProductsDTO() {BrandId = 2}
+                new ReadThirdPartyProductsDTO() {Id = 1, Name = "Screen Protector"},
+                new ReadThirdPartyProductsDTO() {Id = 2, Name = "Phone"}
             };
             var expectedJson = JsonConvert.SerializeObject(expectedResult);
             var expectedUri = new Uri("http://undercutters.azurewebsites.net/api/Product");
@@ -73,7 +73,7 @@ namespace Third_Party_Stock_Request_xUnit_Tests
             Assert.Equal(expectedResult.Length, result.Length);
             for (int i = 0; i < result.Length; i++)
             {
-                Assert.Equal(expectedResult[i].BrandId, result[i].BrandId);
+                Assert.Equal(expectedResult[i].Id, result[i].Id);
             }
 
             mock.Protected()

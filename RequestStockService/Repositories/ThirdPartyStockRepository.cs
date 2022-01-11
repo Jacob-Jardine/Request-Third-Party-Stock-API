@@ -15,7 +15,7 @@ namespace RequestStockService.Repositories
     /// <summary>
     /// Concrete implementation for interacting with the Third Party Stock service
     /// </summary>
-    public class SendPurchaseRequestRepository : IPurchaseRequestRepository
+    public class ThirdPartyStockRepository : IThirdPartyStockRepository
     {
         private readonly IConfiguration _config;
         private readonly HttpClient _client;
@@ -25,7 +25,7 @@ namespace RequestStockService.Repositories
         /// </summary>
         /// <param name="config"></param>
         /// <param name="client"></param>
-        public SendPurchaseRequestRepository(IConfiguration config, HttpClient client)
+        public ThirdPartyStockRepository(IConfiguration config, HttpClient client)
         {
             _config = config;
             string baseUrl = config["THIRD_PARTY_BASE_URL"];

@@ -11,7 +11,7 @@ namespace RequestStockService.Repositories
     /// <summary>
     /// Interface for Third Party Stock service
     /// </summary>
-    public interface IPurchaseRequestRepository
+    public interface IThirdPartyStockRepository
     {
         public Task<bool> SendPurchaseRequest(PurchaseRequestSendDTO purchaseDomainModel);
         public Task<IEnumerable<ReadThirdPartyProductsDTO>> GetAllThirdPartyProducts();

@@ -21,13 +21,13 @@ namespace Third_Party_Stock_Request_xUnit_Tests
         private PurchaseRequestSendDTO sendPurchaseRequestDTO;
         private List<PurchaseRequestSendDTO> listSendPurchaseRequestDTO;
         private List<ReadThirdPartyProductsDTO> readListThirdPartyProductsDTO;
-        private FakePurchaseRequestRepository fakeRepo;
-        private Mock<IPurchaseRequestRepository> mockRepo;
+        private FakeThirdPartyStockRepository fakeRepo;
+        private Mock<IThirdPartyStockRepository> mockRepo;
         private IMapper mapper;
-        private ILogger<PurchaseRequestController> logger;
-        private PurchaseRequestController controller;
+        private ILogger<ThirdPartyStockController> logger;
+        private ThirdPartyStockController controller;
 
-        private void SetUpController(PurchaseRequestController controller)
+        private void SetUpController(ThirdPartyStockController controller)
         {
             controller.ControllerContext = new Microsoft.AspNetCore.Mvc.ControllerContext();
             controller.ControllerContext.HttpContext = new DefaultHttpContext();
@@ -55,7 +55,7 @@ namespace Third_Party_Stock_Request_xUnit_Tests
 
         private void SetFakeRepo()
         {
-            fakeRepo = new FakePurchaseRequestRepository
+            fakeRepo = new FakeThirdPartyStockRepository
             {
                 _readProductList = readListThirdPartyProductsDTO,
                 _purchaseList = listSendPurchaseRequestDTO
@@ -76,12 +76,12 @@ namespace Third_Party_Stock_Request_xUnit_Tests
                 .AddLogging()
                 .BuildServiceProvider()
                 .GetService<ILoggerFactory>()
-                .CreateLogger<PurchaseRequestController>();
+                .CreateLogger<ThirdPartyStockController>();
         }
 
         private void SetMockReviewRepo()
         {
-            mockRepo = new Mock<IPurchaseRequestRepository>();
+            mockRepo = new Mock<IThirdPartyStockRepository>();
 
             mockRepo.Setup(repo => repo.GetAllThirdPartyProducts())
               .ReturnsAsync(new List<ReadThirdPartyProductsDTO>()).Verifiable();
@@ -100,7 +100,7 @@ namespace Third_Party_Stock_Request_xUnit_Tests
         {
             DefaultSetup();
             SetFakeRepo();
-            controller = new PurchaseRequestController(fakeRepo, mapper, logger);
+            controller = new ThirdPartyStockController(fakeRepo, mapper, logger);
             SetUpController(controller);
         }
 
@@ -108,7 +108,7 @@ namespace Third_Party_Stock_Request_xUnit_Tests
         {
             DefaultSetup();
             SetMockReviewRepo();
-            controller = new PurchaseRequestController(mockRepo.Object, mapper, logger);
+            controller = new ThirdPartyStockController(mockRepo.Object, mapper, logger);
             SetUpController(controller);
         }
 

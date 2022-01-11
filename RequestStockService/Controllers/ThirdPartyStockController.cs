@@ -15,10 +15,10 @@ namespace RequestStockService.Controllers
     /// </summary>
     [Route("api/third-party")]
     [ApiController]
-    public class PurchaseRequestController : ControllerBase
+    public class ThirdPartyStockController : ControllerBase
     {
-        private readonly IPurchaseRequestRepository _purchaseRequestRepository;
-        private readonly ILogger<PurchaseRequestController> _logger;
+        private readonly IThirdPartyStockRepository _purchaseRequestRepository;
+        private readonly ILogger<ThirdPartyStockController> _logger;
         private IMapper _mapper;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace RequestStockService.Controllers
         /// </summary>
         /// <param name="purchaseRequestRepository"></param>
         /// <param name="mapper"></param>
-        public PurchaseRequestController(IPurchaseRequestRepository purchaseRequestRepository, IMapper mapper, ILogger<PurchaseRequestController> logger)
+        public ThirdPartyStockController(IThirdPartyStockRepository purchaseRequestRepository, IMapper mapper, ILogger<ThirdPartyStockController> logger)
         {
             _purchaseRequestRepository = purchaseRequestRepository;
             _mapper = mapper;

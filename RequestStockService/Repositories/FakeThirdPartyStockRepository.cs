@@ -10,19 +10,19 @@ namespace RequestStockService.Repositories
     /// <summary>
     /// Fake implementation for Third Party Stock service
     /// </summary>
-    public class FakePurchaseRequestRepository : IPurchaseRequestRepository
+    public class FakeThirdPartyStockRepository : IThirdPartyStockRepository
     {
         public List<PurchaseRequestSendDTO> _purchaseList;
         public List<ReadThirdPartyProductsDTO> _readProductList;
         /// <summary>
         /// Constructor instantiating fakes
         /// </summary>
-        public FakePurchaseRequestRepository()
+        public FakeThirdPartyStockRepository()
         {
             _purchaseList = new List<PurchaseRequestSendDTO>(){};
             _readProductList = new List<ReadThirdPartyProductsDTO>() 
             {
-                new ReadThirdPartyProductsDTO() {BrandId = 1}
+                new ReadThirdPartyProductsDTO() {Id = 1, Ean = "11-22ee-ee23", CategoryId = 1, CategoryName = "Car", BrandId = 1, BrandName = "Fiat", Name = "Panda", Description = "Small Car", Price = 9999.99M, InStock = false}
             };
         }
 
